@@ -123,7 +123,7 @@ async function cargar_rss(){
         }
 
         // Escribe el feed RSS en el archivo
-        await fs.writeFileSync('feed.xml', feed.xml());
+        fs.writeFile('./feed.xml', feed.xml());
 
     } catch (error) {
         console.error(`Error al generar el feed RSS: ${error.message}`);
