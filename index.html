@@ -1,6 +1,8 @@
+<script src="rss_generator.js"></script>
 <script>
     async function getRSS() {
       // Obtén el feed RSS del servidor
+      cargar_rss()
       const response = await fetch('https://github.com/${process.env.GITHUB_REPOSITORY}/feed.xml');
       const feed = await response.text();
   

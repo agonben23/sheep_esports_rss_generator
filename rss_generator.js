@@ -101,6 +101,36 @@ async function extraerDatos() {
     }
 }
 
+async function cargar_rss(){
+    try {
+        // Espera a que se resuelva la promesa devuelta por extraerDatos
+        const articulos = await extraerDatos();
+
+        const feed = new rss({
+            title: 'Sheep Esports',
+            feed_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}/feed.xml',
+            site_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}',
+        });
+
+        for (let i = 0; i < articulos.length; i++) {
+            feed.item({
+                title: articulos[i]['titulo'],
+                url : articulos[i]['url'],
+                imageURL : articulos[i]['imageURL']
+                // Otros campos del ítem del feed
+            });
+        }
+
+        // Escribe el feed RSS en el archivo
+        await fs.writeFileSync('feed.xml', feed.xml());
+
+    } catch (error) {
+        console.error(`Error al generar el feed RSS: ${error.message}`);
+        // Manejar el error según tus necesidades
+        res.status(500).send('Error interno del servidor');
+    }
+}
+
 // Endpoint para generar el feed RSS
 app.get('/rss', async (req, res) => {
 
