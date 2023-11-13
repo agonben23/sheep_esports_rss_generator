@@ -1,5 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
+const fs = require('fs')
 const rss = require('rss');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -108,8 +109,8 @@ async function cargar_rss(){
 
         const feed = new rss({
             title: 'Sheep Esports',
-            feed_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}/feed.xml',
-            site_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}',
+            feed_url: 'https://github.com/agonben23/sheep_esports_rss_generator/feed.xml',
+            site_url: 'https://github.com/agonben23/sheep_esports_rss_generator',
         });
 
         for (let i = 0; i < articulos.length; i++) {
