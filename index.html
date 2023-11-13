@@ -1,0 +1,12 @@
+<script>
+    async function getRSS() {
+      // Obtén el feed RSS del servidor
+      const response = await fetch('https://github.com/${process.env.GITHUB_REPOSITORY}/feed.xml');
+      const feed = await response.text();
+  
+      // Muestra el feed RSS en la página
+      document.getElementById('rss').innerHTML = feed;
+    }
+  
+    getRSS();
+</script>

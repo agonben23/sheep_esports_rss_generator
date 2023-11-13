@@ -110,8 +110,8 @@ app.get('/rss', async (req, res) => {
 
         const feed = new rss({
             title: 'Sheep Esports',
-            feed_url: 'http://localhost/rss',
-            site_url: 'http://localhost',
+            feed_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}/feed.xml',
+            site_url: 'https://github.com/${process.env.GITHUB_REPOSITORY}',
         });
 
         for (let i = 0; i < articulos.length; i++) {
@@ -123,9 +123,8 @@ app.get('/rss', async (req, res) => {
             });
         }
 
-        // Enviar el feed como respuesta
-        res.set('Content-Type', 'text/xml');
-        res.send(feed.xml());
+        // Escribe el feed RSS en el archivo
+        await fs.writeFileSync('feed.xml', feed.xml());
 
     } catch (error) {
         console.error(`Error al generar el feed RSS: ${error.message}`);
